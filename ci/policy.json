@@ -1,0 +1,11 @@
+{
+  "kind": "web",
+  "repository": "AiAlly-second/TerraCart-Frontend",
+  "node": "22.23.3",
+  "workflow": "terracart-frontend-cicd.yml",
+  "artifact_name": "terracart-web",
+  "reviewed_scripts": {
+    "lint": "eslint .",
+    "build": "vite build"
+  }
+}

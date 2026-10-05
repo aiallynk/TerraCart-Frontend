@@ -73,7 +73,6 @@ const AccessibilityTools = () => {
         font-size: clamp(0.75rem, ${Math.min(fontSize * 0.008, 1)}rem, 1rem) !important;
       }
       body [class*="price"],
-      body [style*="₹"],
       body *:has(> .rupee-text),
       body *:where(:not(.accessibility-tools)):where(:not(script)):where(:not(style)) { }
       body h1:not([class*="card"] h1):not([style*="position"]) { font-size: 2.5em !important; }

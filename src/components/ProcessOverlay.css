@@ -10,6 +10,7 @@
 
 .process-panel {
   width: min(520px, 92vw);
+  box-sizing: border-box;
   background: #fff4ec;           /* light peach */
   color: #6b2d1a;                /* dark brownish text */
   border-radius: 18px;
@@ -36,7 +37,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 6px;
+  min-height: 44px;
+  padding: 8px 6px;
   border-radius: 10px;
   transition: background 180ms ease;
 }
@@ -45,12 +47,23 @@
   background: #ffe8d6;           /* soft peach highlight */
 }
 
-.process-step .icon {
-  width: 18px;
-  height: 18px;
+.status-circle {
+  box-sizing: border-box;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
   display: grid;
   place-items: center;
   position: relative;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+.icon-centering-wrapper {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
 }
 
 /* Pending: small bullet */
@@ -78,38 +91,39 @@
 /* Done: animated tick  */
 .tick {
   --c: #f97316; /* deep orange */
-  display: inline-block;
-  width: 16px; height: 16px;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
   border: 2px solid var(--c);
   border-radius: 50%;
-  position: relative;
-  overflow: hidden;
 }
 .tick::after {
   content: "";
-  position: absolute;
-  left: 3px; top: 1px;
-  width: 6px; height: 10px;
+  box-sizing: border-box;
+  width: 6px;
+  height: 10px;
   border-right: 2px solid var(--c);
   border-bottom: 2px solid var(--c);
-  transform: rotate(45deg) scale(0.6);
-  transform-origin: bottom left;
-  animation: draw 300ms ease forwards;
+  transform: rotate(45deg) scale(0);
+  transform-origin: center;
+  animation: draw-check 300ms ease forwards;
 }
-@keyframes draw {
+@keyframes draw-check {
   from { opacity: 0; transform: rotate(45deg) scale(0); }
   to   { opacity: 1; transform: rotate(45deg) scale(1); }
 }
 
 /* Error: cross */
 .cross {
-  width: 16px; height: 16px;
+  width: 18px; height: 18px;
   position: relative;
 }
 .cross::before, .cross::after {
   content: "";
   position: absolute;
-  left: 7px; top: 2px;
+  left: 8px; top: 3px;
   width: 2px; height: 12px;
   background: #ef4444; /* reddish orange for error */
 }
@@ -118,6 +132,8 @@
 
 .label {
   flex: 1;
+  min-width: 0;
+  line-height: 1.35;
   font-size: 0.98rem;
   color: #92400e; /* warm brown */
 }
@@ -143,4 +159,15 @@
   margin: 10px 2px 0;
   font-size: 0.85rem;
   color: #b45309; /* orange hint */
+}
+
+@media (max-width: 360px) {
+  .process-panel {
+    width: min(calc(100% - 20px), 520px);
+    padding: 18px 16px 16px;
+  }
+
+  .process-step {
+    gap: 8px;
+  }
 }

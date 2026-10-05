@@ -17,6 +17,7 @@ import {
 } from "../utils/socketManager";
 import { notifyOrderStatusUpdate } from "../utils/orderStatusNotifications";
 import { getCustomerApiOrigin } from "../utils/customerApiOrigin";
+import { formatINR, INR_CURRENCY_SYMBOL } from "../utils/currency";
 import "./OrderSummary.css";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -138,11 +139,6 @@ const buildInvoiceId = (order) => {
   return `INV-${date}-${cartIdTail}`;
 };
 
-const formatMoney = (value) => {
-  const num = Number(value);
-  if (Number.isNaN(num)) return "0.00";
-  return num.toFixed(2);
-};
 
 const normalizeOrderStatus = (value) => {
   const token = String(value || "")
@@ -927,7 +923,7 @@ export default function OrderSummary() {
                       )}
                     </span>
                     <span>
-                      {it.quantity > 0 ? `₹${formatMoney(amount)}` : "Returned"}
+                      {it.quantity > 0 ? formatINR(amount) : "Returned"}
                     </span>
                   </div>
                 );
@@ -941,12 +937,12 @@ export default function OrderSummary() {
               </div>
               <div className="total-row">
                 <span>{t("subtotal")}</span>
-                <span>₹{totals.subtotal.toFixed(2)}</span>
+                <span>{formatINR(totals.subtotal)}</span>
               </div>
 
               <div className="total-row total-bold">
                 <span>{t("total")}</span>
-                <span>₹{totals.totalAmount.toFixed(2)}</span>
+                <span>{formatINR(totals.totalAmount)}</span>
               </div>
             </div>
 
@@ -1101,9 +1097,9 @@ export default function OrderSummary() {
                   <tr>
                     <th>{t("itemHeader") || "Item"}</th>
                     <th>{t("quantityHeader") || "Qty"}</th>
-                    <th>{t("priceHeader") || "Price (₹)"}</th>
+                    <th>{t("priceHeader") || `Price (${INR_CURRENCY_SYMBOL})`}</th>
                     <th className="align-right">
-                      {t("amountHeader") || "Amount (₹)"}
+                      {t("amountHeader") || `Amount (${INR_CURRENCY_SYMBOL})`}
                     </th>
                   </tr>
                 </thead>
@@ -1127,10 +1123,10 @@ export default function OrderSummary() {
                             </div>
                           </td>
                           <td>{it.quantity > 0 ? it.quantity : "—"}</td>
-                          <td>₹{formatMoney(unitPrice)}</td>
+                          <td>{formatINR(unitPrice)}</td>
                           <td className="align-right">
                             {it.quantity > 0
-                              ? `₹${formatMoney(amount)}`
+                              ? formatINR(amount)
                               : "Returned"}
                           </td>
                         </tr>
@@ -1153,12 +1149,12 @@ export default function OrderSummary() {
                 </div>
                 <div className="meta-line">
                   <span>{t("subtotal")}</span>
-                  <span>₹{formatMoney(totals.subtotal)}</span>
+                  <span>{formatINR(totals.subtotal)}</span>
                 </div>
 
                 <div className="meta-line total">
                   <span>{t("total")}</span>
-                  <span>₹{formatMoney(totals.totalAmount)}</span>
+                  <span>{formatINR(totals.totalAmount)}</span>
                 </div>
               </div>
 

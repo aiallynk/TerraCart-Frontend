@@ -32,8 +32,12 @@ export default function ProcessOverlay({ open, title = "Processing your order", 
             <ul className="process-steps">
               {steps.map((s, i) => (
                 <li key={i} className={`process-step ${s.state}`}>
-                  <span className="icon">
-                    {s.state === "done" && <span className="tick" aria-hidden="true" />}
+                  <span className="status-circle" aria-hidden="true">
+                    {s.state === "done" && (
+                      <span className="icon-centering-wrapper">
+                        <span className="tick" />
+                      </span>
+                    )}
                     {s.state === "active" && <span className="dot" aria-hidden="true" />}
                     {s.state === "error" && <span className="cross" aria-hidden="true" />}
                     {s.state === "pending" && <span className="bullet" aria-hidden="true" />}

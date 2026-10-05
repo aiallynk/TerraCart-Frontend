@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { getImageUrl, getSpiceLevelValue } from "../menuHelpers.js";
 import { SPICE_LEVEL_LABELS } from "../menuConstants.js";
+import { formatINR } from "../../../utils/currency";
 
 /** Presentational menu tile (formerly TranslatedItem). */
 export function MenuItemCard({
@@ -45,7 +46,7 @@ export function MenuItemCard({
           {translatedName || item?.name || "Unnamed Item"}
         </h4>
         <div className="item-price-row">
-          <p className="item-price">{"\u20B9"}{item?.price || 0}</p>
+          <p className="item-price">{formatINR(item?.price)}</p>
           {spiceLevel && (
             <span
               className={`item-spice-badge spice-${spiceLevel.toLowerCase()}`}

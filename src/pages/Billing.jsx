@@ -8,6 +8,7 @@ import FloatingPDFButton from "../components/FloatingPDFButton";
 import FloatingSignLanguageButton from "../components/FloatingSignLanguageButton";
 import floatingButtonTranslations from "../data/translations/floatingButtons.json";
 import { getCustomerApiOrigin } from "../utils/customerApiOrigin";
+import { formatINR } from "../utils/currency";
 import "./Billing.css";
 
 const nodeApi = getCustomerApiOrigin();
@@ -368,12 +369,7 @@ export default function Billing() {
                   <span>
                     {item.name} × {item.quantity}
                   </span>
-                  <span>
-                    ₹
-                    {(((item.price || 0) / 100) * (item.quantity || 0)).toFixed(
-                      2,
-                    )}
-                  </span>
+                  <span>{formatINR(((item.price || 0) / 100) * (item.quantity || 0))}</span>
                 </div>
               ))
             )}
@@ -387,12 +383,12 @@ export default function Billing() {
           >
             <div className="total-row subtotal">
               <span>{t("subtotal")}</span>
-              <span>₹{totals.subtotal.toFixed(2)}</span>
+              <span>{formatINR(totals.subtotal)}</span>
             </div>
 
             <div className="total-row final-total">
               <span>{t("total")}</span>
-              <span>₹{totals.totalAmount.toFixed(2)}</span>
+              <span>{formatINR(totals.totalAmount)}</span>
             </div>
           </div>
 

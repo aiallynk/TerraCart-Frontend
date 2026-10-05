@@ -22,6 +22,7 @@ import { queryClient } from "../query/queryClient";
 import { queryKeys } from "../query/queryKeys";
 import { fetchMenuPublicPayload } from "../services/menuPublicApi";
 import { getCustomerApiOrigin } from "../utils/customerApiOrigin";
+import { formatINR } from "../utils/currency";
 // But let's keep imports minimal
 
 const nodeApi = getCustomerApiOrigin();
@@ -1254,7 +1255,7 @@ export default function CartPage() {
                 )}
                 <div className="item-details">
                   <h3>{item.name}</h3>
-                  <div className="item-price">₹{item.price}</div>
+                  <div className="item-price">{formatINR(item.price)}</div>
                 </div>
                 <div className="qty-controls">
                   <button
@@ -1285,7 +1286,7 @@ export default function CartPage() {
             <div className="cart-footer-content">
               <div className="total-row final-total-row">
                 <span>{t("total")}</span>
-                <span>₹{finalTotal.toFixed(2)}</span>
+                <span>{formatINR(finalTotal)}</span>
               </div>
               <div className="action-buttons">
                 <button onClick={handleReset} className="reset-btn">
@@ -1336,7 +1337,7 @@ export default function CartPage() {
                       <div className="addon-text">
                         <span className="addon-name">{sanitizeAddonName(addon.name)}</span>
                         {addon.price > 0 && (
-                          <span className="addon-price">₹{addon.price}</span>
+                          <span className="addon-price">{formatINR(addon.price)}</span>
                         )}
                       </div>
                     </div>

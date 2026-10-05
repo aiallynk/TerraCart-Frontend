@@ -36,6 +36,7 @@ import { queryClient } from "../../query/queryClient";
 import { queryKeys } from "../../query/queryKeys";
 import { fetchMenuPublicPayload } from "../../services/menuPublicApi";
 import { notifyOrderStatusUpdate } from "../../utils/orderStatusNotifications";
+import { formatINR, INR_CURRENCY_SYMBOL } from "../../utils/currency";
 
 import {
   nodeApi,
@@ -68,7 +69,6 @@ import {
   hasOfficeQrMetadata,
   resolveOfficePaymentMode,
   paiseToRupees,
-  formatMoney,
   getInvoiceCaptureScale,
   isIOSLikeBrowser,
   saveInvoicePdf,
@@ -6566,8 +6566,7 @@ export default function MenuPage() {
                       }}
                     >
                       <span>
-                        Total: â‚¹
-                        {formatMoney(previousDetailTotals?.totalAmount || 0)}
+                        Total: {formatINR(previousDetailTotals?.totalAmount || 0)}
                       </span>
                       <span>{previousDetailTotals?.totalItems || 0} items</span>
                     </div>
@@ -6866,8 +6865,8 @@ export default function MenuPage() {
                   <tr>
                     <th>Item</th>
                     <th>Qty</th>
-                    <th>Price (â‚¹)</th>
-                    <th className="align-right">Amount (â‚¹)</th>
+                    <th>Price ({INR_CURRENCY_SYMBOL})</th>
+                    <th className="align-right">Amount ({INR_CURRENCY_SYMBOL})</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -6885,10 +6884,10 @@ export default function MenuPage() {
                           </div>
                         </td>
                         <td>{item.quantity > 0 ? item.quantity : "â€”"}</td>
-                        <td>â‚¹{formatMoney(item.unitPrice)}</td>
+                        <td>{formatINR(item.unitPrice)}</td>
                         <td className="align-right">
                           {item.quantity > 0
-                            ? `â‚¹${formatMoney(item.amount)}`
+                            ? formatINR(item.amount)
                             : "Returned"}
                         </td>
                       </tr>
@@ -6910,18 +6909,18 @@ export default function MenuPage() {
                 </div>
                 <div className="meta-line">
                   <span>Subtotal</span>
-                  <span>â‚¹{formatMoney(invoiceTotals.subtotal)}</span>
+                  <span>{formatINR(invoiceTotals.subtotal)}</span>
                 </div>
                 {Number(invoiceTotals.officeDeliveryCharge || 0) > 0 && (
                   <div className="meta-line">
                     <span>Delivery Charge</span>
-                    <span>â‚¹{formatMoney(invoiceTotals.officeDeliveryCharge)}</span>
+                    <span>{formatINR(invoiceTotals.officeDeliveryCharge)}</span>
                   </div>
                 )}
 
                 <div className="meta-line total">
                   <span>Total</span>
-                  <span>â‚¹{formatMoney(invoiceTotals.totalAmount)}</span>
+                  <span>{formatINR(invoiceTotals.totalAmount)}</span>
                 </div>
               </div>
 
@@ -7028,7 +7027,7 @@ export default function MenuPage() {
                 {cartItemCount} Items
               </span>
               <span style={{ color: "#666", fontSize: "0.9rem" }}>
-                Total: â‚¹{cartTotal.toFixed(2)}
+                Total: {formatINR(cartTotal)}
               </span>
             </div>
             <button

@@ -1,0 +1,1 @@
+import{M as l}from"./page-MenuPage-iPbpT7GA.js";import"./vendor-react-DZYfl6o2.js";import"./vendor-DQDQhKG2.js";import"./page-Landing.jsx-BkKxBK4t.js";import"./vendor-motion-DycmzOmT.js";import"./vendor-pdf-BiFFsUwY.js";import"./page-SecondPage.jsx-lSXVDuqs.js";import"./vendor-socket-D62OxzCW.js";/* empty css                            */export{l as default};
